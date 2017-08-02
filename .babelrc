@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0",
+    "stage-1"
+  ],
+  "plugins": [
+    "babel-plugin-add-module-exports",
+    "transform-class-properties"
+  ]
+}
