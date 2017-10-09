@@ -11,8 +11,6 @@ export default new Config().extend({
     return config
   }
 }).merge({
-  watch: true,
-
   devtool: '#source-map',
 
   output: {
