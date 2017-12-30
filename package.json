@@ -1,7 +1,8 @@
 {
-  "name": "pure-mvc",
-  "version": "1.0.4",
-  "description": "PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern",
+  "name": "@koreez/pure-mvc",
+  "version": "1.1.0",
+  "description":
+    "PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern",
   "main": "lib/library.js",
   "scripts": {
     "build": "webpack --config config/webpack.config.js"
