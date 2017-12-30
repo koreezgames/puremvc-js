@@ -36,7 +36,9 @@ export default class View {
    *  The Singleton instance of View
    */
   static getInstance (key) {
-    if (!key) { return null }
+    if (!key) {
+      return null
+    }
 
     if (!this.instanceMap.has(key)) {
       this.instanceMap.set(key, new View(key))

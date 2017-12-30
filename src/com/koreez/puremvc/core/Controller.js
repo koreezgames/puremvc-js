@@ -36,7 +36,9 @@ export default class Controller {
    *  the Multiton instance of Controller
    */
   static getInstance (key) {
-    if (!key) { return null }
+    if (!key) {
+      return null
+    }
 
     if (!this.instanceMap.has(key)) {
       this.instanceMap.set(key, new Controller(key))
@@ -72,7 +74,9 @@ export default class Controller {
    */
   executeCommand (note) {
     const commandClassRef = this.commandMap.get(note.getName())
-    if (!commandClassRef) { return }
+    if (!commandClassRef) {
+      return
+    }
     // eslint-disable-next-line
     const commandInstance = new commandClassRef()
     commandInstance.initializeNotifier(this.multitonKey)
@@ -97,7 +101,10 @@ export default class Controller {
    */
   registerCommand (notificationName, commandClassRef) {
     if (!this.commandMap.has(notificationName)) {
-      this.view.registerObserver(notificationName, new Observer(this.executeCommand, this))
+      this.view.registerObserver(
+        notificationName,
+        new Observer(this.executeCommand, this)
+      )
     }
     this.commandMap.set(notificationName, commandClassRef)
   }

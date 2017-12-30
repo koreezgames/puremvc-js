@@ -28,5 +28,5 @@ export default class SimpleCommand extends Notifier {
    *  The notification to handle.
    * @return {void}
    */
-  execute (notification) { }
+  execute (notification) {}
 }

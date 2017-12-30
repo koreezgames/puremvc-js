@@ -71,9 +71,7 @@ export default class Proxy extends Notifier {
    *
    * @return {void}
    */
-  onRegister () {
-
-  }
+  onRegister () {}
 
   /**
    * Called by the {@link puremvc.Model Model} when
@@ -81,8 +79,7 @@ export default class Proxy extends Notifier {
    *
    * @return {void}
    */
-  onRemove () {
-  }
+  onRemove () {}
 }
 
 const NAME = 'Proxy'

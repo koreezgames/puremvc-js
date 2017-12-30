@@ -21,7 +21,7 @@ export {
   Notification,
   Notifier,
   Observer,
-  Proxy
+  Proxy,
 }
 
 const PureMVC = {}

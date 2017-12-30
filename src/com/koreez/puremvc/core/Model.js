@@ -55,7 +55,9 @@ export default class Model {
    *  the instance for this Multiton key
    */
   static getInstance (key) {
-    if (!key) { return null }
+    if (!key) {
+      return null
+    }
 
     if (!this.instanceMap.has(key)) {
       this.instanceMap.set(key, new Model(key))

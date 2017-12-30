@@ -43,7 +43,9 @@ export default class Facade {
    * @return {puremvc.Facade}
    */
   static getInstance (key) {
-    if (!key) { return null }
+    if (!key) {
+      return null
+    }
 
     if (!Facade.instanceMap.has(key)) {
       Facade.instanceMap.set(key, new Facade(key))
@@ -90,7 +92,9 @@ export default class Facade {
    * @return {void}
    */
   initializeController () {
-    if (this.controller) { return }
+    if (this.controller) {
+      return
+    }
     this.controller = Controller.getInstance(this.multitonKey)
   }
 
@@ -121,7 +125,9 @@ export default class Facade {
    * @return {void}
    */
   initializeModel () {
-    if (this.model) { return }
+    if (this.model) {
+      return
+    }
     this.model = Model.getInstance(this.multitonKey)
   }
 
@@ -150,7 +156,9 @@ export default class Facade {
    * @return {void}
    */
   initializeView () {
-    if (this.view) { return }
+    if (this.view) {
+      return
+    }
     this.view = View.getInstance(this.multitonKey)
   }
 
@@ -356,7 +364,9 @@ export default class Facade {
    * @return {void}
    */
   static removeCore (key) {
-    if (!this.instanceMap.has(key)) { return }
+    if (!this.instanceMap.has(key)) {
+      return
+    }
     Model.removeModel(key)
     View.removeView(key)
     Controller.removeController(key)
@@ -364,4 +374,5 @@ export default class Facade {
   }
 }
 
-const MULTITON_MSG = 'Facade instance for this Multiton key already constructed!'
+const MULTITON_MSG =
+  'Facade instance for this Multiton key already constructed!'
