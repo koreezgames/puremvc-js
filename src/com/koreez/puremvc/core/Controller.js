@@ -1,7 +1,6 @@
 /**
  * Created by sargis on 7/3/17.
  */
-import Observer from '../patterns/observer/Observer'
 import View from './View'
 /**
  * @constructor
@@ -72,15 +71,15 @@ export default class Controller {
    * @param {puremvc.Notification} note
    * @return {void}
    */
-  executeCommand (note) {
-    const commandClassRef = this.commandMap.get(note.getName())
+  executeCommand (notificationName, ...args) {
+    const commandClassRef = this.commandMap.get(notificationName)
     if (!commandClassRef) {
       return
     }
     // eslint-disable-next-line
     const commandInstance = new commandClassRef()
     commandInstance.initializeNotifier(this.multitonKey)
-    commandInstance.execute(note)
+    commandInstance.execute(notificationName, ...args)
   }
 
   /**
@@ -101,10 +100,7 @@ export default class Controller {
    */
   registerCommand (notificationName, commandClassRef) {
     if (!this.commandMap.has(notificationName)) {
-      this.view.registerObserver(
-        notificationName,
-        new Observer(this.executeCommand, this)
-      )
+      this.view.registerObserver(notificationName, this.executeCommand, this)
     }
     this.commandMap.set(notificationName, commandClassRef)
   }

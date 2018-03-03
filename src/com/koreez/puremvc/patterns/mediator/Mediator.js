@@ -104,18 +104,18 @@ export default class Mediator extends Notifier {
    * @param {puremvc.Notification} notification
    * @return {void}
    */
-  handleNotification (notification) {}
+  handleNotification (notification) { }
 
   /**
    * Called by the View when the Mediator is registered
    * @return {void}
    */
-  onRegister () {}
+  onRegister () { }
 
   /**
    * Called by the View when the Mediator is removed
    */
-  onRemove () {}
+  onRemove () { }
 }
 
 const NAME = 'Mediator'

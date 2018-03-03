@@ -45,7 +45,7 @@ export default class MacroCommand extends SimpleCommand {
    * MacroCommands or SimpleCommands are both acceptable.
    * @return {void}
    */
-  initializeMacroCommand () {}
+  initializeMacroCommand () { }
 
   /**
    * @protected
@@ -57,22 +57,5 @@ export default class MacroCommand extends SimpleCommand {
    */
   addSubCommand (subCommand) {
     this.subCommands.push(subCommand)
-  }
-
-  /**
-   * Execute this MacroCommands *SubCommands*
-   *
-   * The *SubCommand*s will be called in First In / First Out (FIFO) order
-   * @param {puremvc.Notification} note
-   *  The Notification object to be passed to each *SubCommand*
-   */
-  execute (note) {
-    while (this.subCommands.length > 0) {
-      const ref = this.subCommands.shift()
-      // eslint-disable-next-line new-cap
-      const cmd = new ref()
-      cmd.initializeNotifier(this.multitonKey)
-      cmd.execute(note)
-    }
   }
 }

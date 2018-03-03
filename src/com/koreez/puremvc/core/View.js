@@ -2,7 +2,8 @@
  * Created by sargis on 7/4/17.
  */
 
-import Observer from '../patterns/observer/Observer'
+// import Observer from '../patterns/observer/Observer'
+import EventEmitter from 'eventemitter3'
 /**
  * This View implementation is a Multiton, so you should not call the
  * constructor directly, but instead call the static Multiton
@@ -24,6 +25,7 @@ export default class View {
     this.multitonKey = key
     this.mediatorMap = new Map()
     this.observerMap = new Map()
+    this.eventEmitter = new EventEmitter()
     this.initializeView()
   }
 
@@ -57,7 +59,7 @@ export default class View {
    *
    * @return {void}
    */
-  initializeView () {}
+  initializeView () { }
 
   /**
    * Register an Observer to be notified of Notifications with a given name
@@ -68,12 +70,8 @@ export default class View {
    *  The Observer to register.
    * @return {void}
    */
-  registerObserver (notificationName, observer) {
-    if (this.observerMap.has(notificationName)) {
-      this.observerMap.get(notificationName).push(observer)
-    } else {
-      this.observerMap.set(notificationName, [observer])
-    }
+  registerObserver (notificationName, observerMethod, context) {
+    this.eventEmitter.on(notificationName, observerMethod, context)
   }
 
   /**
@@ -87,24 +85,8 @@ export default class View {
    *  The Notification to notify Observers of
    * @return {void}
    */
-  notifyObservers (notification) {
-    // SIC
-    if (this.observerMap.has(notification.getName())) {
-      let i
-      const observers = this.observerMap.get(notification.getName())
-      const observersBuffer = []
-      let observer
-
-      for (i = 0; i < observers.length; ++i) {
-        observer = observers[i]
-        observersBuffer.push(observer)
-      }
-
-      for (i = 0; i < observersBuffer.length; ++i) {
-        observer = observersBuffer[i]
-        observer.notifyObserver(notification)
-      }
-    }
+  notifyObservers (notificationName, ...args) {
+    this.eventEmitter.emit(notificationName, notificationName, ...args)
   }
 
   /**
@@ -117,19 +99,8 @@ export default class View {
    *  Remove the Observer with this object as its notifyContext
    * @return {void}
    */
-  removeObserver (notificationName, notifyContext) {
-    // SIC
-    const observers = this.observerMap.get(notificationName)
-    for (let i = 0; i < observers.length; i++) {
-      if (observers[i].compareNotifyContext(notifyContext) === true) {
-        observers.splice(i, 1)
-        break
-      }
-    }
-
-    if (observers.length === 0) {
-      this.observerMap.delete(notificationName)
-    }
+  removeObserver (notificationName, observerMethod, context) {
+    this.eventEmitter.removeListener(notificationName, observerMethod, context)
   }
 
   /**
@@ -163,10 +134,12 @@ export default class View {
 
     // register mediator as an observer for each notification
     if (interests.length > 0) {
-      // create observer referencing this mediators handleNotification method
-      const observer = new Observer(mediator.handleNotification, mediator)
       for (let i = 0; i < interests.length; i++) {
-        this.registerObserver(interests[i], observer)
+        this.registerObserver(
+          interests[i],
+          mediator.handleNotification,
+          mediator
+        )
       }
     }
 
@@ -201,7 +174,7 @@ export default class View {
       for (let i = 0; i < interests.length; i++) {
         // remove the observer linking the mediator to the notification
         // interest
-        this.removeObserver(interests[i], mediator)
+        this.removeObserver(interests[i], mediator.handleNotification, mediator)
       }
 
       // remove the mediator from the map

@@ -5,7 +5,6 @@
 import Controller from '../../core/Controller'
 import Model from '../../core/Model'
 import View from '../../core/View'
-import Notification from '../observer/Notification'
 
 /**
  * Facade exposes the functionality of the Controller, Model and View
@@ -306,8 +305,8 @@ export default class Facade {
    *  The type of the notification
    * @return {void}
    */
-  sendNotification (notificationName, body, type) {
-    this.notifyObservers(new Notification(notificationName, body, type))
+  sendNotification (notificationName, ...args) {
+    this.notifyObservers(notificationName, ...args)
   }
 
   /**
@@ -323,8 +322,8 @@ export default class Facade {
    *  The Notification to send
    * @return {void}
    */
-  notifyObservers (notification) {
-    this.view.notifyObservers(notification)
+  notifyObservers (notificationName, ...args) {
+    this.view.notifyObservers(notificationName, ...args)
   }
 
   /**
