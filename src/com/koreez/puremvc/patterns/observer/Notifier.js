@@ -69,15 +69,13 @@ export default class Notifier {
    *
    * @param {string} notificationName
    *  A notification name
-   * @param {Object} [body]
+   * @param {Array} [args]
    *  The body of the notification
-   * @param {string} [type]
-   *  The notification type
    * @return {void}
    */
-  sendNotification (notificationName, body, type) {
+  sendNotification (notificationName, ...args) {
     if (this.facade) {
-      this.facade.sendNotification(notificationName, body, type)
+      this.facade.sendNotification(notificationName, ...args)
     }
   }
 
