@@ -1,7 +1,7 @@
 import Notifier from '../observer/Notifier';
 
 export default abstract class Mediator extends Notifier {
-  protected viewComponent: string;
+  protected viewComponent: any;
   private mediatorName: string;
 
   constructor(mediatorName: string, viewComponent: any) {
