@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin')
 const GitRevisionPlugin = require('git-revision-webpack-plugin')
 
 exports.cleanup = paths => ({
@@ -9,16 +8,16 @@ exports.cleanup = paths => ({
   ],
 })
 
-exports.loadJs = ({ babelOptions }) => ({
+exports.loadJs = ({ options }) => ({
   module: {
     rules: [
       {
-        test: /\.js?$/,
-        exclude: /node_modules/,
+        test: /\.ts?$/,
+        exclude: ['/node_modules/', '/lib/'],
         use: [
           {
-            loader: 'babel-loader',
-            options: babelOptions,
+            loader: 'ts-loader',
+            options: options,
           },
         ],
       },
@@ -28,14 +27,6 @@ exports.loadJs = ({ babelOptions }) => ({
 
 exports.sourceMaps = method => ({
   devtool: method,
-})
-
-exports.minifyJavaScript = () => ({
-  plugins: [new UglifyWebpackPlugin({ sourceMap: true })],
-})
-
-exports.scopeHoisting = () => ({
-  plugins: [new webpack.optimize.ModuleConcatenationPlugin()],
 })
 
 exports.attachRevision = () => ({

@@ -13,7 +13,7 @@ const libraryName = main.substring(0, main.lastIndexOf('.'))
 
 const paths = {
   base: path.resolve('src'),
-  app: path.resolve('src/index.js'),
+  app: path.resolve('src/index.ts'),
   dist: path.resolve('lib'),
 }
 
@@ -33,35 +33,16 @@ const libConfig = merge([
     },
     resolve: {
       modules: [path.resolve('./node_modules'), path.resolve('./src')],
-      extensions: ['.json', '.js'],
+      extensions: ['.json', '.js', '.ts'],
     },
     plugins: [new CaseSensitivePathsPlugin()],
   },
 
-  parts.loadJs({
-    babelOptions: {
-      presets: [
-        [
-          'babel-preset-env',
-          {
-            modules: false,
-            useBuiltIns: 'entry',
-            shippedProposals: true,
-          },
-        ],
-        'stage-2',
-      ],
-      plugins: [],
-    },
-  }),
+  parts.loadJs({}),
 
   parts.sourceMaps('source-map'),
 
   parts.cleanup([paths.dist]),
-
-  parts.minifyJavaScript(),
-
-  parts.scopeHoisting(),
 
   parts.attachRevision(),
 ])
