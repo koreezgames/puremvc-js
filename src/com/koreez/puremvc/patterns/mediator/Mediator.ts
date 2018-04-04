@@ -1,10 +1,10 @@
 import Notifier from '../observer/Notifier';
 
-export default abstract class Mediator extends Notifier {
-  protected viewComponent: any;
+export default abstract class Mediator<T> extends Notifier {
+  protected viewComponent: T;
   private mediatorName: string;
 
-  constructor(mediatorName: string, viewComponent: any) {
+  constructor(mediatorName: string, viewComponent: T) {
     super();
     this.mediatorName = mediatorName || NAME;
     this.viewComponent = viewComponent;
@@ -14,11 +14,11 @@ export default abstract class Mediator extends Notifier {
     return this.mediatorName;
   }
 
-  public setViewComponent(viewComponent: any): void {
+  public setViewComponent(viewComponent: T): void {
     this.viewComponent = viewComponent;
   }
 
-  public getViewComponent(): any {
+  public getViewComponent(): T {
     return this.viewComponent;
   }
 

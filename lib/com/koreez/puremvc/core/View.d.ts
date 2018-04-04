@@ -10,9 +10,9 @@ export default class View {
     removeObserver(notificationName: string, observerMethod: (notificationName: string, ...args: any[]) => void, context: any): void;
     registerObserver(notificationName: string, observerMethod: (notificationName: string, ...args: any[]) => void, context: any): void;
     notifyObservers(notificationName: string, ...args: any[]): void;
-    registerMediator(mediator: Mediator): void;
-    retrieveMediator<T extends Mediator>(mediatorName: string): T;
-    removeMediator<T extends Mediator>(mediatorName: string): T;
+    registerMediator<V>(mediator: Mediator<V>): void;
+    retrieveMediator<V, T extends Mediator<V>>(mediatorName: string): T;
+    removeMediator<V, T extends Mediator<V>>(mediatorName: string): T;
     hasMediator(mediatorName: string): boolean;
     protected initializeView(): void;
 }

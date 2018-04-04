@@ -1,8 +1,7 @@
 {
   "name": "@koreez/pure-mvc",
-  "version": "2.1.1",
-  "description":
-    "PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern",
+  "version": "2.1.2",
+  "description": "PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack --config config/webpack.config.js --mode production"
@@ -17,7 +16,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -27,8 +26,8 @@
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
     "tslint-loader": "^3.6.0",
-    "typescript": "^2.7.1",
-    "webpack": "^4.2.0",
+    "typescript": "^2.8.1",
+    "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.13",
     "webpack-merge": "^4.1.2"

@@ -90,15 +90,15 @@ export default class Facade {
     return this.model.hasProxy(proxyName);
   }
 
-  public registerMediator<T extends Mediator>(mediator: T): void {
+  public registerMediator<V, T extends Mediator<V>>(mediator: T): void {
     this.view.registerMediator(mediator);
   }
 
-  public retrieveMediator<T extends Mediator>(mediatorName: string): T {
+  public retrieveMediator<V, T extends Mediator<V>>(mediatorName: string): T {
     return this.view.retrieveMediator(mediatorName);
   }
 
-  public removeMediator<T extends Mediator>(mediatorName: string): T {
+  public removeMediator<V, T extends Mediator<V>>(mediatorName: string): T {
     return this.view.removeMediator(mediatorName);
   }
 

@@ -1,11 +1,11 @@
 import Notifier from '../observer/Notifier';
-export default abstract class Mediator extends Notifier {
-    protected viewComponent: any;
+export default abstract class Mediator<T> extends Notifier {
+    protected viewComponent: T;
     private mediatorName;
-    constructor(mediatorName: string, viewComponent: any);
+    constructor(mediatorName: string, viewComponent: T);
     getMediatorName(): string;
-    setViewComponent(viewComponent: any): void;
-    getViewComponent(): any;
+    setViewComponent(viewComponent: T): void;
+    getViewComponent(): T;
     abstract listNotificationInterests(): string[];
     abstract handleNotification(notificationName: string): void;
     onRegister(): void;

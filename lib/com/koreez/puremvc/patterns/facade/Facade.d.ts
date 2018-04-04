@@ -21,9 +21,9 @@ export default class Facade {
     retrieveProxy<T extends Proxy>(proxyName: string): T;
     removeProxy<T extends Proxy>(proxyName: string): T;
     hasProxy(proxyName: string): boolean;
-    registerMediator<T extends Mediator>(mediator: T): void;
-    retrieveMediator<T extends Mediator>(mediatorName: string): T;
-    removeMediator<T extends Mediator>(mediatorName: string): T;
+    registerMediator<V, T extends Mediator<V>>(mediator: T): void;
+    retrieveMediator<V, T extends Mediator<V>>(mediatorName: string): T;
+    removeMediator<V, T extends Mediator<V>>(mediatorName: string): T;
     hasMediator(mediatorName: string): boolean;
     sendNotification(notificationName: string, ...args: any[]): void;
     notifyObservers(notificationName: string, ...args: any[]): void;

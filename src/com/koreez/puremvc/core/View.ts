@@ -21,7 +21,7 @@ export default class View {
   private static instanceMap: { [key: string]: View } = {};
 
   private multitonKey: string;
-  private mediatorMap: { [key: string]: Mediator } = {};
+  private mediatorMap: { [key: string]: Mediator<any> } = {};
   private eventEmitter: EventEmitter = new EventEmitter();
 
   constructor(key: string) {
@@ -52,7 +52,7 @@ export default class View {
     this.eventEmitter.emit(notificationName, notificationName, ...args);
   }
 
-  public registerMediator(mediator: Mediator): void {
+  public registerMediator<V>(mediator: Mediator<V>): void {
     if (this.mediatorMap[mediator.getMediatorName()]) {
       return;
     }
@@ -74,12 +74,12 @@ export default class View {
     mediator.onRegister();
   }
 
-  public retrieveMediator<T extends Mediator>(mediatorName: string): T {
+  public retrieveMediator<V, T extends Mediator<V>>(mediatorName: string): T {
     return this.mediatorMap[mediatorName] as T;
   }
 
-  public removeMediator<T extends Mediator>(mediatorName: string): T {
-    const mediator: Mediator = this.mediatorMap[mediatorName];
+  public removeMediator<V, T extends Mediator<V>>(mediatorName: string): T {
+    const mediator: Mediator<V> = this.mediatorMap[mediatorName];
     if (mediator) {
       // for every notification the mediator is interested in...
       const interests: string[] = mediator.listNotificationInterests();
