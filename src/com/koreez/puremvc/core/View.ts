@@ -61,17 +61,25 @@ export default class View {
     // register the mediator for retrieval by name
     this.mediatorMap[mediator.getMediatorName()] = mediator;
 
-    // get notification interests if any
-    const interests: string[] = mediator.listNotificationInterests();
-
-    // register mediator as an observer for each notification
-    if (interests.length > 0) {
-      for (const interest of interests) {
-        this.registerObserver(interest, mediator.handleNotification, mediator);
-      }
-    }
+    this.registerObservers(mediator);
 
     mediator.onRegister();
+    mediator.onAwake();
+  }
+
+  public awakeMediator<V, T extends Mediator<V>>(mediatorName: string): T {
+    const mediator: Mediator<V> = this.mediatorMap[mediatorName];
+    if (mediator) {
+      if (!mediator.isSleeping) {
+        return mediator as T;
+      }
+      this.registerObservers(mediator);
+
+      // alert the mediator that it has been awaken
+      mediator.onAwake();
+    }
+
+    return mediator as T;
   }
 
   public retrieveMediator<V, T extends Mediator<V>>(mediatorName: string): T {
@@ -81,19 +89,29 @@ export default class View {
   public removeMediator<V, T extends Mediator<V>>(mediatorName: string): T {
     const mediator: Mediator<V> = this.mediatorMap[mediatorName];
     if (mediator) {
-      // for every notification the mediator is interested in...
-      const interests: string[] = mediator.listNotificationInterests();
-      if (interests.length > 0) {
-        for (const interest of interests) {
-          // interest
-          this.removeObserver(interest, mediator.handleNotification, mediator);
-        }
-      }
+      this.removeObservers(mediator);
+
       // remove the mediator from the map
       delete this.mediatorMap[mediatorName];
 
+      mediator.onSleep();
       // alert the mediator that it has been removed
       mediator.onRemove();
+    }
+
+    return mediator as T;
+  }
+
+  public sleepMediator<V, T extends Mediator<V>>(mediatorName: string): T {
+    const mediator: Mediator<V> = this.mediatorMap[mediatorName];
+    if (mediator) {
+      if (mediator.isSleeping) {
+        return mediator as T;
+      }
+      this.removeObservers(mediator);
+
+      // alert the mediator that it has been slept
+      mediator.onSleep();
     }
 
     return mediator as T;
@@ -104,6 +122,29 @@ export default class View {
   }
 
   protected initializeView(): void {}
+
+  private removeObservers<V>(mediator: Mediator<V>): void {
+    // for every notification the mediator is interested in...
+    const interests: string[] = mediator.listNotificationInterests();
+    if (interests.length > 0) {
+      for (const interest of interests) {
+        // interest
+        this.removeObserver(interest, mediator.handleNotification, mediator);
+      }
+    }
+  }
+
+  private registerObservers<V>(mediator: Mediator<V>): void {
+    // get notification interests if any
+    const interests: string[] = mediator.listNotificationInterests();
+
+    // register mediator as an observer for each notification
+    if (interests.length > 0) {
+      for (const interest of interests) {
+        this.registerObserver(interest, mediator.handleNotification, mediator);
+      }
+    }
+  }
 }
 
 const MULTITON_MSG: string =

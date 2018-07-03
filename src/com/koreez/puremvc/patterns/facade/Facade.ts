@@ -102,6 +102,14 @@ export default class Facade {
     return this.view.removeMediator(mediatorName);
   }
 
+  public sleepMediator<V, T extends Mediator<V>>(mediatorName: string): T {
+    return this.view.sleepMediator(mediatorName);
+  }
+
+  public awakeMediator<V, T extends Mediator<V>>(mediatorName: string): T {
+    return this.view.awakeMediator(mediatorName);
+  }
+
   public hasMediator(mediatorName: string): boolean {
     return this.view.hasMediator(mediatorName);
   }
