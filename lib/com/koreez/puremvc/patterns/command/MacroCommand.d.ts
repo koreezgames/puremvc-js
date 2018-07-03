@@ -1,7 +1,0 @@
-import SimpleCommand from './SimpleCommand';
-export default abstract class MacroCommand<T extends SimpleCommand> extends SimpleCommand {
-    protected subCommands: Array<new () => T>;
-    constructor();
-    protected initializeMacroCommand(): void;
-    protected addSubCommand(subCommand: new () => T): void;
-}
