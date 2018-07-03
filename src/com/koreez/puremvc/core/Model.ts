@@ -19,7 +19,7 @@ export default class Model {
   private static instanceMap: { [key: string]: Model } = {};
 
   private multitonKey: string;
-  private proxyMap: { [key: string]: Proxy } = {};
+  private proxyMap: { [key: string]: Proxy<any> } = {};
 
   constructor(key: string) {
     if (Model.instanceMap[key]) {
@@ -29,13 +29,13 @@ export default class Model {
     this.initializeModel();
   }
 
-  public registerProxy<T extends Proxy>(proxy: T): void {
+  public registerProxy<V, T extends Proxy<V>>(proxy: T): void {
     proxy.initializeNotifier(this.multitonKey);
     this.proxyMap[proxy.getProxyName()] = proxy;
     proxy.onRegister();
   }
 
-  public retrieveProxy<T extends Proxy>(proxyName: string): T {
+  public retrieveProxy<V, T extends Proxy<V>>(proxyName: string): T {
     return this.proxyMap[proxyName] as T;
   }
 
@@ -43,7 +43,7 @@ export default class Model {
     return this.proxyMap[proxyName] !== undefined;
   }
 
-  public removeProxy<T extends Proxy>(proxyName: string): T {
+  public removeProxy<V, T extends Proxy<V>>(proxyName: string): T {
     if (this.proxyMap[proxyName]) {
       const proxy: T = this.proxyMap[proxyName] as T;
       proxy.onRemove();

@@ -3,10 +3,10 @@
  */
 import Notifier from '../observer/Notifier';
 
-export default class Proxy extends Notifier {
+export default class Proxy<T> extends Notifier {
   private proxyName: string;
-  private data: string;
-  constructor(proxyName: string, data: any) {
+  private data: T;
+  constructor(proxyName: string, data: T) {
     super();
     this.proxyName = proxyName || NAME;
     if (data) {
@@ -18,11 +18,11 @@ export default class Proxy extends Notifier {
     return this.proxyName;
   }
 
-  public setData(data: any): void {
+  public setData(data: T): void {
     this.data = data;
   }
 
-  public getData(): any {
+  public getData(): T {
     return this.data;
   }
 

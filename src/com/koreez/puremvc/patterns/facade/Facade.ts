@@ -71,15 +71,15 @@ export default class Facade {
     return this.controller.hasCommand(notificationName);
   }
 
-  public registerProxy<T extends Proxy>(proxy: T): void {
-    this.model.registerProxy<T>(proxy);
+  public registerProxy<V, T extends Proxy<V>>(proxy: T): void {
+    this.model.registerProxy<V, T>(proxy);
   }
 
-  public retrieveProxy<T extends Proxy>(proxyName: string): T {
+  public retrieveProxy<V, T extends Proxy<V>>(proxyName: string): T {
     return this.model.retrieveProxy(proxyName);
   }
 
-  public removeProxy<T extends Proxy>(proxyName: string): T {
+  public removeProxy<V, T extends Proxy<V>>(proxyName: string): T {
     if (this.model) {
       return this.model.removeProxy(proxyName);
     }
