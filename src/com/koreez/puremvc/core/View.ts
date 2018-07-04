@@ -63,7 +63,9 @@ export default class View {
 
     this.registerObservers(mediator);
 
-    mediator.onRegister();
+    mediator.onRegister(
+      this.onMediatorNotificationSubscriptionChange.bind(this),
+    );
     mediator.onAwake();
   }
 
@@ -123,27 +125,41 @@ export default class View {
 
   protected initializeView(): void {}
 
-  private removeObservers<V>(mediator: Mediator<V>): void {
+  private removeObservers<V>(
+    mediator: Mediator<V>,
+    interests?: string[],
+  ): void {
     // for every notification the mediator is interested in...
-    const interests: string[] = mediator.listNotificationInterests();
-    if (interests.length > 0) {
-      for (const interest of interests) {
+    const notificationInterests: string[] = interests || mediator.notifications;
+    if (notificationInterests.length > 0) {
+      for (const interest of notificationInterests) {
         // interest
         this.removeObserver(interest, mediator.handleNotification, mediator);
       }
     }
   }
 
-  private registerObservers<V>(mediator: Mediator<V>): void {
+  private registerObservers<V>(
+    mediator: Mediator<V>,
+    interests?: string[],
+  ): void {
     // get notification interests if any
-    const interests: string[] = mediator.listNotificationInterests();
+    const notificationInterests: string[] = interests || mediator.notifications;
 
     // register mediator as an observer for each notification
-    if (interests.length > 0) {
-      for (const interest of interests) {
+    if (notificationInterests.length > 0) {
+      for (const interest of notificationInterests) {
         this.registerObserver(interest, mediator.handleNotification, mediator);
       }
     }
+  }
+
+  private onMediatorNotificationSubscriptionChange<V>(
+    mediator: Mediator<V>,
+    oldNotifications: string[],
+  ): void {
+    this.removeObservers(mediator, oldNotifications);
+    this.registerObservers(mediator);
   }
 }
 
