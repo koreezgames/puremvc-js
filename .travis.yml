@@ -1,14 +1,15 @@
 language: node_js
 sudo: required
 before_install:
-- npm install -g npm
-- npm --version
+  - npm install -g npm
+  - npm --version
 script:
-- npm run build
+  - npm run build
 node_js:
-- '8'
+  - '8'
 deploy:
   provider: npm
+  email: 'sargsyan.sargis.89@gmail.com'
   skip_cleanup: true
   on:
     tags: true
