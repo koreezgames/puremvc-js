@@ -1,6 +1,6 @@
 {
   "name": "@koreez/pure-mvc",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern",
   "main": "lib/index.js",
   "scripts": {
