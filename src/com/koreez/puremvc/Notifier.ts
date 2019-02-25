@@ -1,11 +1,11 @@
 /**
  * Created by sargis on 7/4/17.
  */
-import Facade from "../facade/Facade";
+import { Facade } from "./Facade";
 
 const MULTITON_MSG: string = "multitonKey for this Notifier not yet initialized!";
 
-export default class Notifier {
+export class Notifier {
     protected facade: Facade;
     protected multitonKey: string;
 

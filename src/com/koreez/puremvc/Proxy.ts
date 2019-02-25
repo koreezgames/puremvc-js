@@ -1,11 +1,11 @@
 /**
  * Created by sargis on 7/4/17.
  */
-import Notifier from "../observer/Notifier";
+import { Notifier } from "./Notifier";
 
 const NAME: string = "Proxy";
 
-export default class Proxy<T> extends Notifier {
+export class Proxy<T> extends Notifier {
     private static readonly _consoleArgs: string[] = [
         "",
         `background: ${"#295A34"}`,

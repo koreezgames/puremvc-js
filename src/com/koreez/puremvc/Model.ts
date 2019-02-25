@@ -1,8 +1,8 @@
-import Proxy from "../patterns/proxy/Proxy";
+import { Proxy } from "./Proxy";
 
 const MULTITON_MSG: string = "Model instance for this Multiton key already constructed!";
 
-export default class Model {
+export class Model {
     public static getInstance(key: string): Model {
         if (!key) {
             return null;

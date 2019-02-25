@@ -1,10 +1,10 @@
-import View from "./View";
+import { View } from "./View";
 
 const MULTITON_MSG: string = "controller key for this Multiton key already constructed";
 
 export type Command = (multitonKey: string, notificationName?: string, ...args: any[]) => any;
 
-export default class Controller {
+export class Controller {
     public static removeController(key: string): void {
         delete this.instanceMap[key];
     }

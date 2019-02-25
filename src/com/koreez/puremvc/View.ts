@@ -1,9 +1,9 @@
 import * as EventEmitter from "eventemitter3";
-import Mediator from "../patterns/mediator/Mediator";
+import { Mediator } from "./Mediator";
 
 const MULTITON_MSG: string = "View instance for this Multiton key already constructed!";
 
-export default class View {
+export class View {
     public static getInstance(key: string): View {
         if (!key) {
             return null;

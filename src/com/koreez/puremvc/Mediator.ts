@@ -1,8 +1,8 @@
-import Notifier from "../observer/Notifier";
+import { Notifier } from "./Notifier";
 
 const NAME: string = "Mediator";
 
-export default abstract class Mediator<T> extends Notifier {
+export abstract class Mediator<T> extends Notifier {
     private static readonly _consoleArgs: string[] = [
         "",
         `background: ${"#2A3351"}`,

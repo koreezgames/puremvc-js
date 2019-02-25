@@ -2,15 +2,15 @@
  * Created by sargis on 7/4/17.
  */
 
-import Controller, { Command } from "../../core/Controller";
-import Model from "../../core/Model";
-import View from "../../core/View";
-import Mediator from "../mediator/Mediator";
-import Proxy from "../proxy/Proxy";
+import { Command, Controller } from "./Controller";
+import { Mediator } from "./Mediator";
+import { Model } from "./Model";
+import { Proxy } from "./Proxy";
+import { View } from "./View";
 
 const MULTITON_MSG: string = "Facade instance for this Multiton key already constructed!";
 
-export default class Facade {
+export class Facade {
     private static readonly _consoleArgs: string[] = [
         "",
         `background: ${"#757130"}`,
