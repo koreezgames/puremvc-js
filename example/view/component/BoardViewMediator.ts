@@ -17,7 +17,8 @@ export default class BoardViewMediator extends Mediator<BoardView> {
         ]);
     }
 
-    public onRegister() {
+    public onRegister(notificationSubscriptionChange: <V>(mediator: Mediator<V>, oldNotifications: string[]) => void) {
+        super.onRegister(notificationSubscriptionChange);
         this.viewComponent = new BoardView();
         this.viewComponent.onBoardInputUp.add(this.onBoardViewInputUp, this);
         (<any>window).game.world.add(this.viewComponent);

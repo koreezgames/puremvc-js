@@ -1,6 +1,17 @@
 import Notifier from "../observer/Notifier";
 
+const NAME: string = "Mediator";
+
 export default abstract class Mediator<T> extends Notifier {
+    private static readonly _consoleArgs: string[] = [
+        "",
+        `background: ${"#2A3351"}`,
+        `background: ${"#364D98"}`,
+        `color: ${"#F4F6FE"}; background: ${"#3656C1"};`,
+        `background: ${"#364D98"}`,
+        `background: ${"#2A3351"}`
+    ];
+
     protected viewComponent: T;
     private mediatorName: string;
     private sleeping: boolean;
@@ -36,18 +47,26 @@ export default abstract class Mediator<T> extends Notifier {
 
     public onRegister(notificationSubscriptionChange: <V>(mediator: Mediator<V>, oldNotifications: string[]) => void): void {
         this.notificationSubscriptionChange = notificationSubscriptionChange;
+        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: register %c %c `;
+        console.log.apply(console, Mediator._consoleArgs);
     }
 
     public onRemove(): void {
         this.notificationSubscriptionChange = null;
+        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: remove %c %c `;
+        console.log.apply(console, Mediator._consoleArgs);
     }
 
     public onSleep(): void {
         this.sleeping = true;
+        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: sleep %c %c `;
+        console.log.apply(console, Mediator._consoleArgs);
     }
 
     public onAwake(): void {
         this.sleeping = false;
+        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: awake %c %c `;
+        console.log.apply(console, Mediator._consoleArgs);
     }
 
     public get isSleeping(): boolean {
@@ -94,5 +113,3 @@ export default abstract class Mediator<T> extends Notifier {
         return false;
     }
 }
-
-const NAME: string = "Mediator";

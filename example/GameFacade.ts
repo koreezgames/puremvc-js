@@ -21,7 +21,6 @@ export default class GameFacade extends Facade {
     }
 
     public sendNotification(notificationName: string, ...args: any[]) {
-        console.log("Sent " + notificationName);
         super.sendNotification(notificationName, ...args);
     }
 

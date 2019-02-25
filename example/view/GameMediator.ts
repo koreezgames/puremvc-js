@@ -15,7 +15,8 @@ export default class GameMediator extends Mediator<Phaser.World> {
         this.subscribeNotification(GameState.READY);
     }
 
-    public onRegister() {
+    public onAwake(): void {
+        super.onAwake();
         this.facade.registerMediator(new ProgressViewMediator());
     }
 

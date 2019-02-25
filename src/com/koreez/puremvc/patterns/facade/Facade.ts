@@ -8,7 +8,18 @@ import View from "../../core/View";
 import Mediator from "../mediator/Mediator";
 import Proxy from "../proxy/Proxy";
 
+const MULTITON_MSG: string = "Facade instance for this Multiton key already constructed!";
+
 export default class Facade {
+    private static readonly _consoleArgs: string[] = [
+        "",
+        `background: ${"#757130"}`,
+        `background: ${"#DED434"}`,
+        `color: ${"#2F2E15"}; background: ${"#FFF325"};`,
+        `background: ${"#DED434"}`,
+        `background: ${"#757130"}`
+    ];
+
     public static getInstance(key: string): Facade {
         if (!key) {
             return null;
@@ -111,6 +122,8 @@ export default class Facade {
     }
 
     public sendNotification(notificationName: string, ...args: any[]): void {
+        Facade._consoleArgs[0] = `%c %c %c ${notificationName}: args [ ${args} ] %c %c `;
+        console.log.apply(console, Facade._consoleArgs);
         this.notifyObservers(notificationName, ...args);
     }
 
@@ -121,6 +134,7 @@ export default class Facade {
     public initializeNotifier(key: string): void {
         this.multitonKey = key;
     }
+
     protected initializeController(): void {
         if (this.controller) {
             return;
@@ -142,5 +156,3 @@ export default class Facade {
         this.view = View.getInstance(this.multitonKey);
     }
 }
-
-const MULTITON_MSG: string = "Facade instance for this Multiton key already constructed!";

@@ -12,7 +12,8 @@ export default class ProgressViewMediator extends Mediator<ProgressView> {
         this.subscribeNotification([ProgressView.SHOW, ProgressView.HIDE, ProgressView.UPDATE]);
     }
 
-    public onRegister() {
+    public onRegister(notificationSubscriptionChange: <V>(mediator: Mediator<V>, oldNotifications: string[]) => void) {
+        super.onRegister(notificationSubscriptionChange);
         this.viewComponent = new ProgressView();
         (<any>window).game.world.add(this.viewComponent);
     }

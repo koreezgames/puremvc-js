@@ -1,5 +1,7 @@
 import View from "./View";
 
+const MULTITON_MSG: string = "controller key for this Multiton key already constructed";
+
 export type Command = (multitonKey: string, notificationName?: string, ...args: any[]) => any;
 
 export default class Controller {
@@ -64,5 +66,3 @@ export default class Controller {
         command(this.multitonKey, notificationName, ...args);
     }
 }
-
-const MULTITON_MSG: string = "controller key for this Multiton key already constructed";

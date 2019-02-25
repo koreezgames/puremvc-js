@@ -3,13 +3,25 @@ import BoardProxy from "../model/BoardProxy";
 import BoardView from "../view/component/BoardView";
 import GameMediator from "../view/GameMediator";
 
-export function startupCommand(multitonKey: string) {
+const _consoleArgs: string[] = [
+    "",
+    `background: ${"#3F234E"}`,
+    `background: ${"#6E2994"}`,
+    `color: ${"#D4BFE0"}; background: ${"#8724BD"};`,
+    `background: ${"#6E2994"}`,
+    `background: ${"#3F234E"}`
+];
+
+export function startupCommand(multitonKey: string, notificationName: string) {
+    _consoleArgs[0] = `%c %c %c ${notificationName} =>  startupCommand %c %c `;
+    console.log.apply(console, _consoleArgs);
     Facade.getInstance(multitonKey).registerProxy(new BoardProxy());
     Facade.getInstance(multitonKey).registerMediator(new GameMediator());
 }
 
 export function dataCommand(multitonKey: string, notificationName: string) {
-    console.log("DataCommand");
+    _consoleArgs[0] = `%c %c %c ${notificationName} =>  dataCommand %c %c `;
+    console.log.apply(console, _consoleArgs);
     switch (notificationName) {
         case BoardView.DATA_GET:
             getProxy(multitonKey, BoardProxy.NAME).jsonDataGet();
@@ -18,6 +30,8 @@ export function dataCommand(multitonKey: string, notificationName: string) {
 }
 
 export function boardCommand(multitonKey: string, notificationName: string, ...args: any[]) {
+    _consoleArgs[0] = `%c %c %c ${notificationName} =>  boardCommand %c %c `;
+    console.log.apply(console, _consoleArgs);
     switch (notificationName) {
         case BoardView.CELL_CLICK:
             getProxy(multitonKey, BoardProxy.NAME).selectCell(args[0]);

@@ -1,6 +1,8 @@
 import * as EventEmitter from "eventemitter3";
 import Mediator from "../patterns/mediator/Mediator";
 
+const MULTITON_MSG: string = "View instance for this Multiton key already constructed!";
+
 export default class View {
     public static getInstance(key: string): View {
         if (!key) {
@@ -151,5 +153,3 @@ export default class View {
         this.registerObservers(mediator);
     }
 }
-
-const MULTITON_MSG: string = "View instance for this Multiton key already constructed!";

@@ -3,6 +3,8 @@
  */
 import Facade from "../facade/Facade";
 
+const MULTITON_MSG: string = "multitonKey for this Notifier not yet initialized!";
+
 export default class Notifier {
     protected facade: Facade;
     protected multitonKey: string;
@@ -26,5 +28,3 @@ export default class Notifier {
         return Facade.getInstance(this.multitonKey);
     }
 }
-
-const MULTITON_MSG: string = "multitonKey for this Notifier not yet initialized!";
