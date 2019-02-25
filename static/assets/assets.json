@@ -1,0 +1,70 @@
+{
+    "initial": [
+        {
+            "type": "image",
+            "key": "tile",
+            "url": "static/assets/textures/tile.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-1",
+            "url": "static/assets/textures/tile-1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-1-select",
+            "url": "static/assets/textures/tile-1-select.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-2",
+            "url": "static/assets/textures/tile-2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-2-select",
+            "url": "static/assets/textures/tile-2-select.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-3",
+            "url": "static/assets/textures/tile-3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-3-select",
+            "url": "static/assets/textures/tile-3-select.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-4",
+            "url": "static/assets/textures/tile-4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-4-select",
+            "url": "static/assets/textures/tile-4-select.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-block",
+            "url": "static/assets/textures/tile-block.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "tile-select",
+            "url": "static/assets/textures/tile-select.png",
+            "overwrite": false
+        }
+    ]
+}

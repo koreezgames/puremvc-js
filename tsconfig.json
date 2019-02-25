@@ -1,16 +1,26 @@
 {
-  "compilerOptions": {
-    "module": "es6",
-    "target": "es5",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "declaration": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true,
-    "isolatedModules": false,
-    "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "es2015.promise", "es5"]
-  },
-  "files": ["src/index.ts"]
+    "compilerOptions": {
+        "outDir": "lib",
+        "target": "es5",
+        "lib": ["esnext", "dom"],
+        "types": ["reflect-metadata"],
+        "sourceMap": true,
+        "inlineSources": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": false,
+        "strict": false,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "noImplicitThis": false,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["./src/**/*.ts"],
+    "files": ["./node_modules/phaser-ce/typescript/phaser.comments.d.ts"]
 }
