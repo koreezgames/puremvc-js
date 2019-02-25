@@ -31,8 +31,6 @@
         "registry": "https://registry.npmjs.org"
     },
     "keywords": [
-        "Phaser2",
-        "Phaser",
         "puremvc-js"
     ],
     "author": "Koreez LLC",
