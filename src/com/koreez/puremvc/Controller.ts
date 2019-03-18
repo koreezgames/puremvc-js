@@ -5,6 +5,15 @@ const MULTITON_MSG: string = "controller key for this Multiton key already const
 export type Command = (multitonKey: string, notificationName?: string, ...args: any[]) => any;
 
 export class Controller {
+    private static readonly _consoleArgs = [
+        "",
+        `background: ${"#3F234E"}`,
+        `background: ${"#6E2994"}`,
+        `color: ${"#D4BFE0"}; background: ${"#8724BD"};`,
+        `background: ${"#6E2994"}`,
+        `background: ${"#3F234E"}`
+    ];
+
     public static removeController(key: string): void {
         delete this.instanceMap[key];
     }
@@ -63,6 +72,8 @@ export class Controller {
         if (!command) {
             return;
         }
+        Controller._consoleArgs[0] = `%c %c %c ${notificationName} =>  ${command.name} %c %c `;
+        console.log.apply(console, Controller._consoleArgs);
         command(this.multitonKey, notificationName, ...args);
     }
 }

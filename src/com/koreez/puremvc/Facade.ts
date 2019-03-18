@@ -124,10 +124,6 @@ export class Facade {
     public sendNotification(notificationName: string, ...args: any[]): void {
         Facade._consoleArgs[0] = `%c %c %c ${notificationName}: args [ ${args} ] %c %c `;
         console.log.apply(console, Facade._consoleArgs);
-        this.notifyObservers(notificationName, ...args);
-    }
-
-    public notifyObservers(notificationName: string, ...args: any[]): void {
         this.view.notifyObservers(notificationName, ...args);
     }
 
