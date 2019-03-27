@@ -6,6 +6,7 @@ import { Command, Controller } from "./Controller";
 import { Mediator } from "./Mediator";
 import { Model } from "./Model";
 import { Proxy } from "./Proxy";
+import { PureMVC } from "./PureMVC";
 import { View } from "./View";
 
 const MULTITON_MSG: string = "Facade instance for this Multiton key already constructed!";
@@ -51,11 +52,13 @@ export class Facade {
     private view: View;
     private controller: Controller;
     private multitonKey: string;
+    private logger: (consoleArgs: string[], notificationName: string, ...args: any[]) => void;
 
     constructor(key: string) {
         if (Facade.instanceMap[key]) {
             throw new Error(MULTITON_MSG);
         }
+        this.logger = PureMVC.debug ? PureMVC.logNotification : PureMVC.logNone;
         this.initializeNotifier(key);
         this.initializeFacade();
     }
@@ -122,8 +125,7 @@ export class Facade {
     }
 
     public sendNotification(notificationName: string, ...args: any[]): void {
-        Facade._consoleArgs[0] = `%c %c %c ${notificationName}: args [ ${args} ] %c %c `;
-        console.log.apply(console, Facade._consoleArgs);
+        this.logger(Facade._consoleArgs, notificationName, ...args);
         this.view.notifyObservers(notificationName, ...args);
     }
 

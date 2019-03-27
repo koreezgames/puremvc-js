@@ -2,6 +2,7 @@
  * Created by sargis on 7/4/17.
  */
 import { Notifier } from "./Notifier";
+import { PureMVC } from "./PureMVC";
 
 const NAME: string = "Proxy";
 
@@ -17,9 +18,12 @@ export class Proxy<T> extends Notifier {
 
     private proxyName: string;
     private data: T;
+    private logger: (consoleArgs: string[], name: string, action: string) => void;
+
     constructor(proxyName: string, data: T) {
         super();
         this.proxyName = proxyName || NAME;
+        this.logger = PureMVC.debug ? PureMVC.logProxy : PureMVC.logNone;
         if (data) {
             this.setData(data);
         }
@@ -38,12 +42,10 @@ export class Proxy<T> extends Notifier {
     }
 
     public onRegister(): void {
-        Proxy._consoleArgs[0] = `%c %c %c ${this.constructor.name}: register %c %c `;
-        console.log.apply(console, Proxy._consoleArgs);
+        this.logger(Proxy._consoleArgs, this.constructor.name, "register");
     }
 
     public onRemove(): void {
-        Proxy._consoleArgs[0] = `%c %c %c ${this.constructor.name}: remove %c %c `;
-        console.log.apply(console, Proxy._consoleArgs);
+        this.logger(Proxy._consoleArgs, this.constructor.name, "remove");
     }
 }

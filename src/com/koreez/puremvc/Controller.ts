@@ -1,3 +1,4 @@
+import { PureMVC } from "./PureMVC";
 import { View } from "./View";
 
 const MULTITON_MSG: string = "controller key for this Multiton key already constructed";
@@ -35,13 +36,14 @@ export class Controller {
     private commandMap: { [key: string]: Command } = {};
     private multitonKey: string;
     private view: View;
+    private logger: (consoleArgs: string[], notificationName: string, commandName: string) => void;
 
     constructor(key: string) {
         if (Controller.instanceMap[key]) {
             throw new Error(MULTITON_MSG);
         }
-
         this.multitonKey = key;
+        this.logger = PureMVC.debug ? PureMVC.logCommand : PureMVC.logNone;
         this.initializeController();
     }
 
@@ -72,8 +74,7 @@ export class Controller {
         if (!command) {
             return;
         }
-        Controller._consoleArgs[0] = `%c %c %c ${notificationName} =>  ${command.name} %c %c `;
-        console.log.apply(console, Controller._consoleArgs);
+        this.logger(Controller._consoleArgs, notificationName, command.name);
         command(this.multitonKey, notificationName, ...args);
     }
 }

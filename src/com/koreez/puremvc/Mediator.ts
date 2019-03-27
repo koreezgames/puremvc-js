@@ -1,4 +1,5 @@
 import { Notifier } from "./Notifier";
+import { PureMVC } from "./PureMVC";
 
 const NAME: string = "Mediator";
 
@@ -17,9 +18,11 @@ export abstract class Mediator<T> extends Notifier {
     private sleeping: boolean;
     private subscribedNotifications: string[];
     private notificationSubscriptionChange: (mediator: Mediator<T>, oldNotifications: string[]) => void;
+    private logger: (consoleArgs: string[], name: string, action: string) => void;
 
     constructor(mediatorName: string, viewComponent?: T) {
         super();
+        this.logger = PureMVC.debug ? PureMVC.logMediator : PureMVC.logNone;
         this.mediatorName = mediatorName || NAME;
         this.viewComponent = viewComponent;
         this.sleeping = true;
@@ -47,26 +50,22 @@ export abstract class Mediator<T> extends Notifier {
 
     public onRegister(notificationSubscriptionChange: <V>(mediator: Mediator<V>, oldNotifications: string[]) => void): void {
         this.notificationSubscriptionChange = notificationSubscriptionChange;
-        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: register %c %c `;
-        console.log.apply(console, Mediator._consoleArgs);
+        this.logger(Mediator._consoleArgs, this.constructor.name, "register");
     }
 
     public onRemove(): void {
         this.notificationSubscriptionChange = null;
-        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: remove %c %c `;
-        console.log.apply(console, Mediator._consoleArgs);
+        this.logger(Mediator._consoleArgs, this.constructor.name, "remove");
     }
 
     public onSleep(): void {
         this.sleeping = true;
-        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: sleep %c %c `;
-        console.log.apply(console, Mediator._consoleArgs);
+        this.logger(Mediator._consoleArgs, this.constructor.name, "sleep");
     }
 
     public onAwake(): void {
         this.sleeping = false;
-        Mediator._consoleArgs[0] = `%c %c %c ${this.constructor.name}: awake %c %c `;
-        console.log.apply(console, Mediator._consoleArgs);
+        this.logger(Mediator._consoleArgs, this.constructor.name, "awake");
     }
 
     public get isSleeping(): boolean {

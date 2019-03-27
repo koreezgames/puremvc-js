@@ -3,7 +3,7 @@
  */
 import "pixi";
 import "phaser-ce";
-import { Facade } from "../src/index";
+import { Facade, PureMVC } from "../src/index";
 import config from "./config";
 import GameFacade from "./GameFacade";
 import GameState from "./state/GameState";
@@ -15,6 +15,7 @@ export default class Game extends Phaser.Game {
     constructor() {
         super(config.gameWidth, config.gameHeight, Phaser.CANVAS, "", null);
         this.state.add(Game.STATE_GAME, new GameState());
+        PureMVC.debug = true;
         Facade.getInstance = GameFacade.getInstance;
     }
 
